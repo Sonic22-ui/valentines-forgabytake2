@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+            overflow: hidden;
+        }
+        #proposal {
+            margin-top: 20%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        #tulip {
+            width: 600px;
+            margin-top: 60px;
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            top: -10px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        #messageButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="proposal">
+        <h1>Quieres Ser Mi Valentine?</h1>
+        <button id="yesButton" onclick="yesAnswer()">Obvio SI guapo</button>
+        <button onclick="noAnswer()">Nah FEO</button>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+        <h1> A WIWI!! vez que si querias</h1>
+        <img id="tulip" src="gaby.jpeg" alt="Tulip">
+        <button id="messageButton" onclick="goToMessage()">Read My Message</button>
+    </div>
+
+    <script>
+        let yesButtonSize = 18;
+
+        function yesAnswer() {
+            document.getElementById("proposal").classList.add("hidden");
+            document.getElementById("finalMessage").classList.remove("hidden");
+            startConfetti();
+        }
+
+        function noAnswer() {
+            let responses = ["A... soy feo?", "segura?", "Segurisisisima!?", "SOLO DI QUE SI", "PLEASEEE","PORFAvorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr","POrque no?", "Entiendo soy feo", "acaso es  porque soy negro?"];
+            let currentText = document.querySelector("#proposal h1").innerText;
+
+            let index = responses.indexOf(currentText);
+            if (index === -1 || index === responses.length - 1) {
+                document.querySelector("#proposal h1").innerText = responses[0];
+            } else {
+                document.querySelector("#proposal h1").innerText = responses[index + 1];
+            }
+
+            yesButtonSize += 10;
+            document.getElementById("yesButton").style.fontSize = yesButtonSize + "px";
+            document.getElementById("yesButton").style.padding = (yesButtonSize / 2) + "px " + yesButtonSize + "px";
+        }
+
+        function startConfetti() {
+            const colors = ["red", "blue", "yellow", "green", "purple", "pink", "orange"];
+
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                confetti.style.animationDelay = Math.random() * 2 + "s";
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function goToMessage() {
+            window.location.href = "message.html";
+        }
+    </script>
+
+</body>
+</html>
